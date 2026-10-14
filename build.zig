@@ -38,7 +38,7 @@ pub fn build(b: *std.Build) !void {
         lib.root_module.addCMacro("TREE_SITTER_DEBUG", "");
     }
 
-    lib.addIncludePath(b.path("src"));
+    lib.root_module.addIncludePath(b.path("src"));
 
     b.installArtifact(lib);
     b.installFile("src/node-types.json", "node-types.json");
@@ -70,7 +70,7 @@ pub fn build(b: *std.Build) !void {
 
     // HACK: fetch tree-sitter dependency only when testing this module
     if (b.pkg_hash.len == 0) {
-        var args = try std.process.argsWithAllocator(b.allocator);
+        var args = try std.process.Args.iterateAllocator(b.allocator);
         defer args.deinit();
         while (args.next()) |a| {
             if (std.mem.eql(u8, a, "test")) {
