@@ -70,7 +70,7 @@ pub fn build(b: *std.Build) !void {
 
     // HACK: fetch tree-sitter dependency only when testing this module
     blk: {
-        const ts_dep = b.dependencyLazy("tree_sitter", .{}) catch break :blk;
+        const ts_dep = b.lazyDependency("tree_sitter", .{}) orelse break :blk;
         tests.root_module.addImport("tree-sitter", ts_dep.module("tree-sitter"));
     }
 
