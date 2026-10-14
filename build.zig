@@ -88,6 +88,6 @@ pub fn build(b: *std.Build) !void {
 
 inline fn fileExists(b: *std.Build, filename: []const u8) bool {
     const dir = b.build_root.handle;
-    dir.access(filename, .{}) catch return false;
+    dir.access(filename, b.graph.io, .{}) catch return false;
     return true;
 }
