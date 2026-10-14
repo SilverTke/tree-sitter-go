@@ -20,12 +20,12 @@ pub fn build(b: *std.Build) !void {
         }),
     });
 
-    lib.addCSourceFile(.{
+    lib.root_module.addCSourceFile(.{
         .file = b.path("src/parser.c"),
         .flags = &.{"-std=c11"},
     });
     if (fileExists(b, "src/scanner.c")) {
-        lib.addCSourceFile(.{
+        lib.root_module.addCSourceFile(.{
             .file = b.path("src/scanner.c"),
             .flags = &.{"-std=c11"},
         });
