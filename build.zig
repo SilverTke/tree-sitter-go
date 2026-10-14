@@ -71,7 +71,7 @@ pub fn build(b: *std.Build) !void {
     // HACK: fetch tree-sitter dependency only when testing this module
     blk: {
         const ts_dep = b.lazyDependency("tree_sitter", .{}) orelse break :blk;
-        tests.root_module.addImport("tree-sitter", ts_dep.module("tree-sitter"));
+        tests.root_module.addImport("tree-sitter", ts_dep.module("tree_sitter"));
     }
 
     const run_tests = b.addRunArtifact(tests);
